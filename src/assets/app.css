@@ -52,8 +52,8 @@ body {
 .loader {
     animation: spin 2s linear infinite;
     border-radius: 50%;
-    border-top: 16px solid #494949; /* Blue */
-    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #009fbb !important; /* Blue */
+    border: 16px solid #f3f3f3 ; /* Light grey */
     height: 120px;
     margin: 3rem auto;
     width: 120px;

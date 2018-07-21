@@ -10,8 +10,9 @@ fetch('https://raw.githubusercontent.com/samuelchvez/todos-fake-json-api/master/
   .then( response => response.json() )
   .then( responseJSON => { responseJSON.forEach( (element) => state.data.push(element) ) })
   .then( () => state.loading = false )
-  .then( () => render(state))
+ // .then( () => render(state))
   .then( () => console.log(state.data[0]))
+  .catch( (e) => alert(`Algo paso.\nError:\n${e}`))
 
 const render = (lState) => {
   const root = document.getElementById('root');
