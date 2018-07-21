@@ -106,7 +106,7 @@ body {
 }
 
 .footer {
-    margin: 0.5rem 1rem;
+    margin: 0.5rem 1rem 0rem 1rem;
     height: 3rem;
     padding: 0;
     background: wheat;
@@ -129,16 +129,20 @@ body {
 }
 
 .footer .submit {
+    color: white;
+    font-weight: bolder;
     background: rgb(92, 92, 223);
     border: 0;
     border-radius: 0rem 0.5rem 0.5rem 0;
     display: flex;
     flex-grow: 1;
     transition: 0.25s ease-in-out;
+    align-items: center;
+    justify-content: center;
 }
 
 .footer .submit:hover {
-    background: rgb(124, 124, 216);
+    background: rgb(106, 106, 211);
 }
 
 .footer .submit:active {

@@ -2,15 +2,16 @@ const state = {
   tabs: ['ALL', 'COMPLETED', 'ACTIVE'],
   tab_active: 0,
   data: [],
+  pending: [],
   loading: true,
 }
 
-//fetch 
+// fetch 
 fetch('https://raw.githubusercontent.com/samuelchvez/todos-fake-json-api/master/db.json')
   .then( response => response.json() )
   .then( responseJSON => { responseJSON.forEach( (element) => state.data.push(element) ) })
   .then( () => state.loading = false )
- // .then( () => render(state))
+  .then( () => render(state))
   .then( () => console.log(state.data[0]))
   .catch( (e) => alert(`Algo paso.\nError:\n${e}`))
 
@@ -63,9 +64,11 @@ const render = (lState) => {
   const todo_txt = document.createElement('input');
   todo_txt.setAttribute('type', 'text');
   todo_txt.className = 'insert';
+  todo_txt.setAttribute('placeholder', 'Ingrese nueva tarea');
   // boton submit
   const submit = document.createElement('button');
   submit.className = 'submit';
+  submit.innerHTML = 'ADD';
   // listener
   submit.onclick = () => insert(todo_txt, lState);
 
@@ -141,6 +144,13 @@ const insert = (input, lState) => {
     title: '',
     isCompleted: false,
   }
+
+  //check if there si something
+  if (input.value == '') {
+    alert('Por favor ingresar alguna tarea.');
+    return 1;
+  }
+
   todo.title = input.value;
   todo.id = parseInt(lState.data[lState.data.length - 1].id) + 1;
 
