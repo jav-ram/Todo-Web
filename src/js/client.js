@@ -11,6 +11,7 @@ fetch('https://raw.githubusercontent.com/samuelchvez/todos-fake-json-api/master/
   .then( response => response.json() )
   .then( responseJSON => { responseJSON.forEach( (element) => state.data.push(element) ) })
   .then( () => state.loading = false )
+  .then( () => delay(1000)) //solo es para que se note mi loading si no carga muy rapido
   .then( () => render(state))
   .then( () => console.log(state.data[0]))
   .catch( (e) => alert(`Algo paso.\nError:\n${e}`))
@@ -37,6 +38,11 @@ const render = (lState) => {
   const content = document.createElement('div');
   content.className = 'content round';
 
+   //upcoming
+   const upcoming = document.createElement('div');
+   upcoming.className = 'upcoming round';
+ 
+
   if (lState.loading) {
     //loader
     const cargando = document.createElement('div');
@@ -50,11 +56,15 @@ const render = (lState) => {
         content.appendChild(item);
       }
     }
-  }
 
-  //upcoming
-  const upcoming = document.createElement('div');
-  upcoming.className = 'upcoming';
+    //print tareas in uploading 
+    for (let i = 0; i < lState.pending.length; i += 1) {
+      const item = createItemPending(lState, i);
+      if (item != undefined) {
+        upcoming.appendChild(item);
+      }
+    }
+  }
 
   //footer
   const footer = document.createElement('div');
@@ -96,11 +106,38 @@ const createTab = (lState, index) => {
   return tab;
 }
 
+const createItemPending = (lState, i) => {
+  const complete = lState.pending[i].isCompleted;
+  const item = document.createElement('div');
+  item.className = `item ${i} round pending`;
+
+  //text 
+  const text = document.createElement('p');
+  text.innerHTML = `${lState.pending[i].title}`;
+  item.appendChild(text);
+
+  //loading 
+  const cargando = document.createElement('div');
+  cargando.className = `loader small`;
+  item.appendChild(cargando);
+
+  // check if it is completed
+  if (complete) {
+    item.className = `${item.className} complete`;
+  }
+
+  return item;
+}
+
 const createItem = (lState, i) => {
   const complete = lState.data[i].isCompleted;
   const item = document.createElement('div');
   item.className = `item ${i} round`;
-  item.innerHTML = `${lState.data[i].title}`;
+
+  //text 
+  const text = document.createElement('p');
+  text.innerHTML = `${lState.data[i].title}`;
+  item.appendChild(text);
 
   // check if it is completed
   if (complete) {
@@ -151,15 +188,26 @@ const insert = (input, lState) => {
     return 1;
   }
 
+  //fake uplaod
   todo.title = input.value;
   todo.id = parseInt(lState.data[lState.data.length - 1].id) + 1;
 
-  lState.data.push(todo);
+  lState.pending.push(todo);
 
-  // fake post
+  //actual load
+  delay(3000)
+  .then( () => lState.data.push(todo))
+  .then( () => lState.pending.pop(todo))
+  .then( () => render(lState));
 
   render(lState);
   return todo;
 }
+
+//delay
+const delay = ms => new Promise(
+  (resolve, reject) => setTimeout(resolve, ms,)
+);
+
 
 render(state);

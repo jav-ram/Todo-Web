@@ -47,6 +47,24 @@ body {
     overflow-y: scroll;
 }
 
+.upcoming {
+    margin: 1rem;
+    height: auto;
+    overflow-y: scroll;
+}
+
+.upcoming .item {
+    background: rgb(192, 192, 192);
+}
+
+.upcoming .item:last-child {
+    border-radius: 0rem 0.5rem 0.5rem 0rem;
+}
+
+.upcoming .item:first-child {
+    border-radius: 0.5rem 0rem 0rem 0.5rem;
+}
+
 /* Lo siguiente fue extraído de: https://www.w3schools.com/howto/howto_css_loader.asp */
 
 .loader {
@@ -66,6 +84,16 @@ body {
 
 /* Aqui termina */
 
+.loader.small {
+    height: 15px;
+    width: 15px;
+    margin: 0;
+    border: 7px solid #f3f3f3 ;
+    border-top: 7px solid #009fbb !important; /* Blue */
+    display: flex;
+}
+
+
 .item {
     margin: 0;
     padding: 1rem 2.5rem;
@@ -75,6 +103,21 @@ body {
     border-style: none solid solid solid;
     border-radius: 0;
     transition: 0.25s ease-in-out;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: start;
+    width: auto;
+    margin: 0;
+    vertical-align: middle;
+    
+}
+
+.item p{ 
+    text-align: start;
+    width: 100%;
+    margin: 0;
+    vertical-align: middle;
 }
 
 .item:hover {
